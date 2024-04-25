@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <style type="text/css">
         body {
-            font-family: Goergia, Times, serif;
+            font-family: 'Helvetica', sans-serif;
             background-color: #29296F;
             color: #E5E2DF;
         }
@@ -22,15 +22,26 @@
             background-color: #29296F;
             border-radius: 2px;
             border: 0;
-            padding: 5px
+            padding: 5px;
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
+        button:active{
+            top: 2px;
+            left: 1px;
+            box-shadow: none;
+        }
+
+
         input {
+            color: #E5E2DF;
             background-color: #343434;
+            border-color: #b5b5b5;
         }
 
         h1 {
             text-align: center;
+            font-size: 1.5em;
         }
 
         .field {
@@ -54,6 +65,8 @@
         
         #password {
             font-family: monospace;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         #generate {
             margin-top: 10px;
@@ -70,21 +83,20 @@
     <div class="container">
         <h1>Password Generator</h1>
         <div class="display">
-            <label id="password">102987hfdjsa</label>
-            <!-- <input type="button" id="clip"> -->
+            <label id="password"></label>
             <button id="clip"> <i class="far fa-clipboard"></i> </button>
         </div>
         <div class="field">
             <label for="length">Password Length</label>
-            <input type="number" id="length">
+            <input type="number" id="length" value="12" min="5" max="25">
         </div>
         <div class="field">
             <label for="uppercase">Include uppercase letters</label>
-            <input type="checkbox" id="uppercase">
+            <input type="checkbox" id="uppercase" checked>
         </div>
         <div class="field">
             <label for="lowercase">Include lowercase letters</label>
-            <input type="checkbox" id="lowercase">
+            <input type="checkbox" id="lowercase" checked>
         </div>
         <div class="field">
             <label for="numbers">Include numbers</label>
@@ -96,6 +108,56 @@
         </div>
         <button id="generate">Generate Password</button>
     </div>
+    <script>
+        function sample_with_replacement(n, arr) {
+            result = [];
+            for (let i = 0; i < n; i++) {
+                sampled = Math.floor(Math.random() * arr.length);
+                result.push(arr[sampled]);
+            }
+            return result;
+        }
+        function generate_password(length, use_upper, use_lower, use_numbers, use_symbols) {
+            let numbers = "0123456789".split('');
+            let upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+            let lower = "abcdefghijklmnopqrstuvwxyz".split('');
+            let symbols = "~`!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/".split('');
+            let available = [];
+            if (use_upper) {
+                available = available.concat(upper);
+            }
+            if (use_lower) {
+                available = available.concat(lower);
+            }
+            if (use_numbers) {
+                available = available.concat(numbers);
+            }
+            if (use_symbols) {
+                available = available.concat(symbols);
+            }
+            // console.log(available);
+            return sample_with_replacement(length, available).join('');
+        }
+
+        function generate_callback() {
+            let length = parseInt(document.getElementById("length").value);
+            let use_upper = document.getElementById("uppercase").checked;
+            let use_lower = document.getElementById("lowercase").checked;
+            let use_numbers = document.getElementById("numbers").checked;
+            let use_symbols = document.getElementById("symbols").checked;
+            let password = generate_password(length, use_upper, use_lower, use_numbers, use_symbols);
+            document.getElementById("password").innerHTML = password;
+        }
+
+        function clip_callback() {
+            let password = document.getElementById("password").innerHTML;
+            navigator.clipboard.writeText(password);
+            console.log("clipped "+password);
+        }
+
+        document.getElementById("generate").onclick = generate_callback;
+        document.getElementById("clip").onclick = clip_callback;
+    </script>
 </body>
 
 </html>
