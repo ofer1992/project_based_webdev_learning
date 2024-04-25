@@ -1,0 +1,101 @@
+<html>
+
+<head>
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <style type="text/css">
+        body {
+            font-family: Goergia, Times, serif;
+            background-color: #29296F;
+            color: #E5E2DF;
+        }
+
+        .container {
+            width: 300px;
+            background-color: #1A1A40;
+            padding: 20px;
+            margin: 5em auto;
+        }
+
+        button {
+            color: #E5E2DF;
+            background-color: #29296F;
+            border-radius: 2px;
+            border: 0;
+            padding: 5px
+        }
+
+        input {
+            background-color: #343434;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .field {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .display {
+            display: flex;
+            font-size: 1.3em;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: #101026;
+            padding: 5px;
+        }
+         
+        .display button {
+            aspect-ratio: 2.5/1;
+        }
+        
+        #password {
+            font-family: monospace;
+        }
+        #generate {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        #length {
+            width: 3em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Password Generator</h1>
+        <div class="display">
+            <label id="password">102987hfdjsa</label>
+            <!-- <input type="button" id="clip"> -->
+            <button id="clip"> <i class="far fa-clipboard"></i> </button>
+        </div>
+        <div class="field">
+            <label for="length">Password Length</label>
+            <input type="number" id="length">
+        </div>
+        <div class="field">
+            <label for="uppercase">Include uppercase letters</label>
+            <input type="checkbox" id="uppercase">
+        </div>
+        <div class="field">
+            <label for="lowercase">Include lowercase letters</label>
+            <input type="checkbox" id="lowercase">
+        </div>
+        <div class="field">
+            <label for="numbers">Include numbers</label>
+            <input type="checkbox" id="numbers">
+        </div>
+        <div class="field">
+            <label for="symbols">Include symbols</label>
+            <input type="checkbox" id="symbols">
+        </div>
+        <button id="generate">Generate Password</button>
+    </div>
+</body>
+
+</html>
